@@ -23,6 +23,7 @@ copy-files:
 
 generate-key:
 	@docker exec -it sandbox-app php artisan key:generate
+	@docker exec -it sandbox-app php artisan jwt:secret
 
 migrations-seeds:
 	@docker exec -it sandbox-app php artisan migrate:refresh --seed

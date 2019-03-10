@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -46,6 +47,32 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        $statusCode = method_exists($exception,'getStatusCode')
+            ? $exception->getStatusCode()
+            : 401;
+        $message = $exception->getMessage();
+
+        switch ($statusCode) {
+            case 404:
+                $message = 'Not Found';
+                break;
+            case 500:
+                $message = 'Interval server error';
+                break;
+        }
+
+        $json = [
+            'success' => false,
+            'error' => [
+                'code' => $statusCode,
+                'message' => $message,
+            ],
+        ];
+        return response()->json($json, 400);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
     }
 }
