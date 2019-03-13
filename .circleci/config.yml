@@ -1,0 +1,41 @@
+version: 2
+image: ubuntu:18.04
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Setup docker
+          command: |
+            cd project && docker-compose up -d
+            docker exec -it sandbox-app sudo composer install
+      - run:
+          name: Setup Laravel
+          command: |
+            cd project && docker exec -it sandbox-app sudo chmod -R 777 /var/www/app
+            make up-ci
+  test:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Setup project
+          command: |
+            cd project && docker-compose up -d
+            docker exec -it sandbox-app sudo composer install
+      - run:
+          name: Setup Laravel
+          command: |
+            cd project && docker exec -it sandbox-app sudo chmod -R 777 /var/www/app
+            make up-ci
+      - run:
+          name: Test code
+          command: docker exec -it sandbox-app vendor/bin/phpunit
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
