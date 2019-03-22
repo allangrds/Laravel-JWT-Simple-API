@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ Route::middleware('throttle:25,1')->group(function () {
 Route::middleware('jwt.auth')->group(function () {
     Route::middleware('throttle:25,1')->group(function () {
         Route::get('/user', function (Request $request) {
-            return $request->user();
+            return response()->json($request->user(), 200);
         });
 
         Route::prefix('auth')->group(function () {

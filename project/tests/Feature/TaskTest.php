@@ -229,6 +229,26 @@ class TaskTest extends TestCase
     }
 
     /** @test */
+    public function it_will_list_single_task()
+    {
+        $this->withoutMiddleware();
+
+        $this->post('tasks/', [
+            'title'       => 'Titulo 1',
+            'description' => 'Descrição 1',
+        ]);
+
+        $response = $this->get('tasks/1');
+
+        $response->assertJson([
+            'id' => 1,
+            'title' => 'Titulo 1',
+            'description' => 'Descrição 1',
+        ]);
+        $response->assertStatus(200);
+    }
+
+    /** @test */
     public function it_will_register_a_task()
     {
         $this->withoutMiddleware();

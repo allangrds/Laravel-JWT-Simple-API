@@ -13,7 +13,7 @@ class TaskController extends Controller
     {
         $tasks = Task::getList($request);
 
-        return response()->json($tasks);
+        return response()->json($tasks, 200);
     }
 
     public function store(TaskCreateRequest $request)
@@ -28,7 +28,7 @@ class TaskController extends Controller
         if (!$task) {
             return response(null, 404);
         }
-        return response()->json($task);
+        return response()->json($task, 200);
     }
 
     public function update(TaskUpdateRequest $request, $id)
