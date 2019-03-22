@@ -1,0 +1,17 @@
+site_name: Laravel Simple API
+repo_name: Laravel Simple API
+repo_url: https://github.com/allangrds/Laravel-Simple-API
+
+nav:
+  - Home: index.md
+  - API Documentation:
+    - Authentication:
+      - Login: auth/login.md
+      - Logout: auth/logout.md
+    - Tasks:
+      - Create: tasks/create.md
+      - Update: tasks/update.md
+      - Delete: tasks/delete.md
+      - Get one: tasks/get_one.md
+      - Get all: tasks/get_all.md
+theme: readthedocs
