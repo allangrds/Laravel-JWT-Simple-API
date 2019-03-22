@@ -34,7 +34,7 @@ Execute the tests:
 ```
 
 ## API Documentation
-[https://allangrds.github.io/Laravel-Simple-API/](https://allangrds.github.io/Laravel-Simple-API/)
+[https://allangrds.github.io/Laravel-JWT-Simple-API/](https://allangrds.github.io/Laravel-JWT-Simple-API/)
 
 ## Built With
 
